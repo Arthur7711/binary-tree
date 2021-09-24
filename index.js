@@ -67,7 +67,7 @@ const menu = {
           text: "Community membership",
         },
         {
-          type: "link",
+          type: "title",
           href: "/about/sponsorship",
           text: "Community sponsorship",
           children: [
@@ -98,12 +98,26 @@ const menu = {
   ],
 };
 
+const addingMenus = document.querySelector(".addHere");
+let newUL = document.createElement("ul");
+let newSpan = document.createElement("span");
+let newli = document.createElement("li");
+let newText = document.createTextNode("shshshshshshs");
+// newli.appendChild(newText);
+// newUL.appendChild(newli);
+// addingMenus.appendChild(newUL);
+
 function binaryTree(obj) {
   if (obj.type === "title") {
     console.log(`UL ${obj.text}`);
+    newSpan.appendChild(document.createTextNode(obj.text));
+    newUL.appendChild(newSpan);
+   addingMenus.appendChild(newUL);
   }
   if (obj.type === "link") {
     console.log(`LI ${obj.text}`);
+    newli.appendChild(document.createTextNode(obj.text));
+    newUL.appendChild(newli);
   }
   obj.children &&
     obj.children.forEach((child) => {
