@@ -125,7 +125,6 @@ const liS = [];
 function binaryTree(obj) {
   console.log(obj.children);
   if (obj.parentID > 0) {
-    //if (ulS[obj.parentID]) {
     let ulCh = document.createElement("ul");
     let liCH = document.createElement("li");
     liCH.innerText = obj.text;
@@ -136,8 +135,6 @@ function binaryTree(obj) {
       ulS[obj.id] = liCH;
     }
     ulS[obj.parentID].appendChild(ulCh);
-
-    //}
   } else {
     let ul = document.createElement("ul");
     let li = document.createElement("li");
@@ -145,22 +142,22 @@ function binaryTree(obj) {
     ul.appendChild(li);
     ulS[obj.id] = li;
   }
-  if (
-    (obj.type === "title" && obj.children) ||
-    (obj.type === "link" && obj.children)
-  ) {
-    console.log(`UL ${obj.text}`);
-    // ulS.push({ ulTX: obj.text, id: obj.id, parentID: obj.parentID });
-    newSpan.appendChild(document.createTextNode(obj.text));
-    newUL.appendChild(newSpan);
-    addingMenus.appendChild(newUL);
-  }
-  if (obj.type === "link" && !obj.children) {
-    console.log(`LI ${obj.text}`);
-    liS.push({ liTX: obj.text, id: obj.id, parentID: obj.parentID });
-    // newli.appendChild(document.createTextNode(obj.text));
-    // newUL.appendChild(newli);
-  }
+  // if (
+  //   (obj.type === "title" && obj.children) ||
+  //   (obj.type === "link" && obj.children)
+  // ) {
+  //   console.log(`UL ${obj.text}`);
+  //   // ulS.push({ ulTX: obj.text, id: obj.id, parentID: obj.parentID });
+  //   newSpan.appendChild(document.createTextNode(obj.text));
+  //   newUL.appendChild(newSpan);
+  //   addingMenus.appendChild(newUL);
+  // }
+  // if (obj.type === "link" && !obj.children) {
+  //   console.log(`LI ${obj.text}`);
+  //   liS.push({ liTX: obj.text, id: obj.id, parentID: obj.parentID });
+  //   // newli.appendChild(document.createTextNode(obj.text));
+  //   // newUL.appendChild(newli);
+  // }
   obj.children &&
     obj.children.forEach((child) => {
       return binaryTree(child);
@@ -168,12 +165,12 @@ function binaryTree(obj) {
 }
 
 binaryTree(menu);
-console.log(ulS);
+// console.log(ulS);
 // ulS.map((el) => {
 //   let elem = newUL.appendChild(document.createTextNode(el.ulTX));
 //   addingMenus.appendChild(elem);
 // });
 
-console.log(ulS, liS);
-function checkingArrs(arrUl, arrLi) {}
-checkingArrs(ulS, liS);
+console.log(ulS);
+// function checkingArrs(arrUl, arrLi) {}
+// checkingArrs(ulS, liS);
