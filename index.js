@@ -1,7 +1,7 @@
 // https://jrsinclair.com/articles/12019/functional-js-traversing-trees-with-recursive-reduce/
 
 const menu = {
-  parentID:0,
+  parentID: 0,
   id: 1,
   type: "title",
   text: "Menu",
@@ -127,15 +127,15 @@ function binaryTree(obj) {
     (obj.type === "title" && obj.children) ||
     (obj.type === "link" && obj.children)
   ) {
-    console.log(`UL ${obj.text}parentID:1,`);
-    ulS.push({ ulTX: obj.text, id: obj.id,parentID:obj.parentID });
+    console.log(`UL ${obj.text}`);
+    ulS.push({ ulTX: obj.text, id: obj.id, parentID: obj.parentID });
     // newSpan.appendChild(document.createTextNode(obj.text));
     // newUL.appendChild(newSpan);
     // addingMenus.appendChild(newUL);
   }
   if (obj.type === "link" && !obj.children) {
-    console.log(`LI ${obj.text}parentID:1,`);
-    liS.push({ liTX: obj.text, id: obj.id,parentID:obj.parentID });
+    console.log(`LI ${obj.text}`);
+    liS.push({ liTX: obj.text, id: obj.id, parentID: obj.parentID });
     // newli.appendChild(document.createTextNode(obj.text));
     // newUL.appendChild(newli);
   }
@@ -148,3 +148,5 @@ function binaryTree(obj) {
 binaryTree(menu);
 
 console.log(ulS, liS);
+function checkingArrs(arrUl, arrLi) {}
+checkingArrs(ulS, liS);
