@@ -98,5 +98,17 @@ const menu = {
   ],
 };
 
+function binaryTree(obj) {
+  if (obj.type === "title") {
+    console.log(`UL ${obj.text}`);
+  }
+  if (obj.type === "link") {
+    console.log(`LI ${obj.text}`);
+  }
+  obj.children &&
+    obj.children.forEach((child) => {
+      return binaryTree(child);
+    });
+}
 
- 
+binaryTree(menu);
