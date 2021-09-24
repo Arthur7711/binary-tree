@@ -120,18 +120,40 @@ let newText = document.createTextNode("shshshshshshs");
 // newli.appendChild(newText);
 // newUL.appendChild(newli);
 // addingMenus.appendChild(newUL);
-const ulS = [];
+const ulS = {};
 const liS = [];
 function binaryTree(obj) {
+  console.log(obj.children);
+  if (obj.parentID > 0) {
+    //if (ulS[obj.parentID]) {
+    let ulCh = document.createElement("ul");
+    let liCH = document.createElement("li");
+    liCH.innerText = obj.text;
+    ulCh.appendChild(liCH);
+    if (obj.children && obj.children.length > 0) {
+      let ul = document.createElement("ul");
+      liCH.appendChild(ul);
+      ulS[obj.id] = liCH;
+    }
+    ulS[obj.parentID].appendChild(ulCh);
+
+    //}
+  } else {
+    let ul = document.createElement("ul");
+    let li = document.createElement("li");
+    li.innerText = obj.text;
+    ul.appendChild(li);
+    ulS[obj.id] = li;
+  }
   if (
     (obj.type === "title" && obj.children) ||
     (obj.type === "link" && obj.children)
   ) {
     console.log(`UL ${obj.text}`);
-    ulS.push({ ulTX: obj.text, id: obj.id, parentID: obj.parentID });
-    // newSpan.appendChild(document.createTextNode(obj.text));
-    // newUL.appendChild(newSpan);
-    // addingMenus.appendChild(newUL);
+    // ulS.push({ ulTX: obj.text, id: obj.id, parentID: obj.parentID });
+    newSpan.appendChild(document.createTextNode(obj.text));
+    newUL.appendChild(newSpan);
+    addingMenus.appendChild(newUL);
   }
   if (obj.type === "link" && !obj.children) {
     console.log(`LI ${obj.text}`);
@@ -146,6 +168,11 @@ function binaryTree(obj) {
 }
 
 binaryTree(menu);
+console.log(ulS);
+// ulS.map((el) => {
+//   let elem = newUL.appendChild(document.createTextNode(el.ulTX));
+//   addingMenus.appendChild(elem);
+// });
 
 console.log(ulS, liS);
 function checkingArrs(arrUl, arrLi) {}
