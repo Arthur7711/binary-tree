@@ -1,7 +1,7 @@
 // https://jrsinclair.com/articles/12019/functional-js-traversing-trees-with-recursive-reduce/
 
 const menu = {
-  parentID: 0,
+  parentID: null,
   id: 1,
   type: "title",
   text: "Menu",
@@ -89,6 +89,14 @@ const menu = {
               type: "link",
               href: "/about/sponsorship/patreon",
               text: "Our Patreon",
+              children: [
+                {
+                  parentID: 302,
+                  id: 30401,
+                  type: "link",
+                  href: "/about/sponsorship/patreon",
+                  text: "Ourmmm",
+                },]
             },
             {
               parentID: 302,
@@ -112,65 +120,65 @@ const menu = {
   ],
 };
 
-const addingMenus = document.querySelector(".addHere");
-let newUL = document.createElement("ul");
-let newSpan = document.createElement("span");
-let newli = document.createElement("li");
-let newText = document.createTextNode("shshshshshshs");
-// newli.appendChild(newText);
-// newUL.appendChild(newli);
-// addingMenus.appendChild(newUL);
-const ulS = {};
-const liS = [];
-function binaryTree(obj) {
-  console.log(obj.children);
-  if (obj.parentID > 0) {
-    let ulCh = document.createElement("ul");
-    let liCH = document.createElement("li");
-    liCH.innerText = obj.text;
-    ulCh.appendChild(liCH);
-    if (obj.children && obj.children.length > 0) {
-      let ul = document.createElement("ul");
-      liCH.appendChild(ul);
-      ulS[obj.id] = liCH;
+function binaryTree(container, obj) {
+  // // console.log(obj.children);
+  // if (obj.parentID) {
+  //   let ulCh = document.createElement("ul");
+  //   let liCH = document.createElement("li");
+  //   liCH.innerText = obj.text;
+  //   ulCh.appendChild(liCH);
+  //   if (obj.children && obj.children.length > 0) {
+  //     let ul = document.createElement("ul");
+  //     liCH.appendChild(ul);
+  //     ulS[obj.id] = liCH;
+  //   }
+  //   ulS[obj.parentID].appendChild(ulCh);
+  // } else {
+  //   let ul = document.createElement("ul");
+  //   let li = document.createElement("li");
+  //   li.innerText = obj.text;
+  //   ul.appendChild(li);
+  //   ulS[obj.id] = li;
+  // }
+  // // if (
+  // //   (obj.type === "title" && obj.children) ||
+  // //   (obj.type === "link" && obj.children)
+  // // ) {
+  // //   console.log(`UL ${obj.text}`);
+  // //   // ulS.push({ ulTX: obj.text, id: obj.id, parentID: obj.parentID });
+  // //   newSpan.appendChild(document.createTextNode(obj.text));
+  // //   newUL.appendChild(newSpan);
+  // //   addingMenus.appendChild(newUL);
+  // // }
+  // // if (obj.type === "link" && !obj.children) {
+  // //   console.log(`LI ${obj.text}`);
+  // //   liS.push({ liTX: obj.text, id: obj.id, parentID: obj.parentID });
+  // //   // newli.appendChild(document.createTextNode(obj.text));
+  // //   // newUL.appendChild(newli);
+  // // }
+  // obj.children &&
+  //   obj.children.forEach((child) => {
+  //     return binaryTree(child);
+  //   });
+
+  const ul = document.createElement("ul");
+  for (const { text, children } of obj) {
+    const li = document.createElement("li");
+    li.innerText = text;
+    if (children) {
+      binaryTree(li, children, true);
     }
-    ulS[obj.parentID].appendChild(ulCh);
-  } else {
-    let ul = document.createElement("ul");
-    let li = document.createElement("li");
-    li.innerText = obj.text;
     ul.appendChild(li);
-    ulS[obj.id] = li;
   }
-  // if (
-  //   (obj.type === "title" && obj.children) ||
-  //   (obj.type === "link" && obj.children)
-  // ) {
-  //   console.log(`UL ${obj.text}`);
-  //   // ulS.push({ ulTX: obj.text, id: obj.id, parentID: obj.parentID });
-  //   newSpan.appendChild(document.createTextNode(obj.text));
-  //   newUL.appendChild(newSpan);
-  //   addingMenus.appendChild(newUL);
-  // }
-  // if (obj.type === "link" && !obj.children) {
-  //   console.log(`LI ${obj.text}`);
-  //   liS.push({ liTX: obj.text, id: obj.id, parentID: obj.parentID });
-  //   // newli.appendChild(document.createTextNode(obj.text));
-  //   // newUL.appendChild(newli);
-  // }
-  obj.children &&
-    obj.children.forEach((child) => {
-      return binaryTree(child);
-    });
+  container.appendChild(ul);
 }
 
-binaryTree(menu);
-// console.log(ulS);
-// ulS.map((el) => {
-//   let elem = newUL.appendChild(document.createTextNode(el.ulTX));
-//   addingMenus.appendChild(elem);
-// });
+function createMenu(menu, container) {
+  let newLi = document.createElement("li");
+  newLi.innerText = menu.text;
+  addingMenus.appendChild(newLi);
+  binaryTree(addingMenus, menu.children);
+}
+const addingMenus = document.getElementById("addHere");
 
-console.log(ulS);
-// function checkingArrs(arrUl, arrLi) {}
-// checkingArrs(ulS, liS);
+createMenu(menu, addingMenus);
